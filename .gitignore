@@ -61,3 +61,5 @@ proguard/
 
 # Android Studio captures folder
 captures/
+
+Secrets.java
