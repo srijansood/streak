@@ -1,9 +1,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +20,8 @@
         android:layout_height="wrap_content"
         android:text="Welcome Daryl"
         android:textSize="@dimen/abc_text_size_large_material"
-        android:paddingBottom="15dp"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="8dp"
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -34,7 +39,6 @@
         android:id="@+id/streak_row"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="15dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -91,5 +95,37 @@
             android:background="@null"
             android:textSize="@dimen/abc_text_size_medium_material"/>
     </LinearLayout>
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/chart1"
+        android:layout_width="326dp"
+        android:layout_height="243dp"/>
+
+    <LinearLayout
+        android:id="@+id/buttonRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"/>
+
+        <com.dd.processbutton.iml.ActionProcessButton
+            android:id="@+id/cheapestButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Add exercise"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            custom:pb_colorNormal="#FF03A9F4"/>
+
+        <com.dd.processbutton.iml.ActionProcessButton
+            android:id="@+id/closestButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Add food"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            custom:pb_colorNormal="#FF03A9F4"/>
     </LinearLayout>
+
 </RelativeLayout>

@@ -24,6 +24,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.github.PhilJay:MPAndroidChart:v2.1.4'
+    compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.4'
     compile 'com.parse.bolts:bolts-android:1.+'
     compile fileTree(dir: 'libs', include: 'Parse-*.jar')
 }
