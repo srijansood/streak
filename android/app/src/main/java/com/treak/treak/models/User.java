@@ -21,18 +21,22 @@ public class User extends ParseUser {
     }
 
     public long getDayStreak() {
-        return getLong("dayStreak");
+//        return getLong("dayStreak");
+        return dayStreak;
     }
 
     public BigDecimal getMoneyEarned() {
-        return (BigDecimal) get("moneyEarned");
+//        return (BigDecimal) get("moneyEarned");
+        return moneyEarned;
     }
 
     public void setDayStreak(long dayStreak) {
-        put("dayStreak", dayStreak);
+//        put("dayStreak", dayStreak);
+        this.dayStreak = dayStreak;
     }
 
     public void setMoneyEarned(BigDecimal moneyEarned) {
-        put("moneyEarned", moneyEarned);
+//        put("moneyEarned", moneyEarned);
+        this.moneyEarned = moneyEarned;
     }
 }

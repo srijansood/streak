@@ -3,4 +3,6 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="streak_label">Your current streak is </string>
+    <string name="cash_label">You\'ve earned</string>
 </resources>

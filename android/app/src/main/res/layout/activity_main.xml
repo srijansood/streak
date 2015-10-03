@@ -5,7 +5,91 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome Daryl"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:paddingBottom="15dp"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_picture"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/daryl_buzz"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#FF000000"/>
+
+    <LinearLayout
+        android:id="@+id/streak_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/workout_logo"
+            android:src="@drawable/barbell"
+            android:paddingRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"/>
+
+        <TextView
+            android:id="@+id/streak_label"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:text="@string/streak_label"
+            android:textSize="@dimen/abc_text_size_medium_material"/>
+
+        <EditText
+            android:id="@+id/streak_value"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:textSize="@dimen/abc_text_size_medium_material"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/cash_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/cash_logo"
+            android:src="@drawable/dollar"
+            android:paddingRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"/>
+
+        <TextView
+            android:id="@+id/cash_label"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:text="@string/cash_label"
+            android:textSize="@dimen/abc_text_size_medium_material"/>
+
+        <EditText
+            android:id="@+id/cash_value"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:textSize="@dimen/abc_text_size_medium_material"/>
+    </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>
