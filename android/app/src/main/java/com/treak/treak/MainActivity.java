@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
+import com.treak.treak.helpers.Secrets;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -19,7 +20,7 @@ public class MainActivity extends ActionBarActivity {
         // Enable Local Datastore.
         Parse.enableLocalDatastore(this);
 
-        Parse.initialize(this, "4e7lcr27mzMidGqPcG69BcUlsgrwDkqSuKbc5uAp", "agshqO6DFFDkozhxroFRtpDWiJUppLTdHfliEIdL");
+        Parse.initialize(this, Secrets.APPLICATION_ID, Secrets.CLIENT_KEY);
 
         ParseObject testObject = new ParseObject("TestObject");
         testObject.put("foo", "bar");
