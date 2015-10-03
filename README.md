@@ -1,2 +1,2 @@
-# streak
+# $treak
 Pebble App - VandyHacksII
