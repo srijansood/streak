@@ -1,0 +1,3 @@
+[submodule "streak-pebble"]
+	path = streak-pebble
+	url = https://github.com/srijansood/streak-pebble
