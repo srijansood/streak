@@ -8,6 +8,9 @@ import android.view.MenuItem;
 import com.parse.Parse;
 import com.parse.ParseObject;
 import com.treak.treak.helpers.Secrets;
+import com.treak.treak.models.ExerciseItem;
+import com.treak.treak.models.FoodItem;
+import com.treak.treak.models.User;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -16,6 +19,11 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Register parse models
+        ParseObject.registerSubclass(User.class);
+        ParseObject.registerSubclass(FoodItem.class);
+        ParseObject.registerSubclass(ExerciseItem.class);
 
         // Enable Local Datastore.
         Parse.enableLocalDatastore(this);
