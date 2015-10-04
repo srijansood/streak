@@ -1,16 +1,18 @@
 package com.treak.treak;
 
+import android.app.ActionBar;
+import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -18,7 +20,6 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.YAxisValueFormatter;
 import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -29,7 +30,6 @@ import com.treak.treak.models.FoodItem;
 import com.treak.treak.models.User;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -37,25 +37,41 @@ import java.util.List;
 
 public class MainActivity extends ActionBarActivity implements SeekBar.OnSeekBarChangeListener {
 
+    public static User userModel;
     private BarChart mChart;
     protected String[] mMonths = new String[] {
             "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     };
 
+    private EditText streakValue;
+    private EditText cashValue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_main);
+        streakValue = (EditText) findViewById(R.id.streak_value);
+        cashValue = (EditText) findViewById(R.id.cash_value);
+        streakValue.setKeyListener(null);
+        cashValue.setKeyListener(null);
+
+        userModel = new User();
         setupParse();
         setupChart();
+        setLabels();
 
+    }
+
+    private void setLabels() {
+        Log.d("Day Streak: ", Long.toString(userModel.getDayStreak()));
+        streakValue.setText("Your current streak is " + Long.toString(userModel.getDayStreak()) + " days.");
+        cashValue.setText("You've earned $" + userModel.getMoneyEarned().toString() + " dollars!");
     }
 
     private void setupParse() {
         // Register parse models
-        ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(FoodItem.class);
         ParseObject.registerSubclass(ExerciseItem.class);
 
@@ -68,12 +84,10 @@ public class MainActivity extends ActionBarActivity implements SeekBar.OnSeekBar
         testObject.put("foo", "bar");
         testObject.saveInBackground();
 
+        userModel.setDayStreak(31);
+        userModel.setMoneyEarned(new BigDecimal(27.00));
 
-        User user = new User();
-        user.setDayStreak(10);
-        user.setMoneyEarned(new BigDecimal(10.00));
-
-        Log.d("User streak: ", Long.toString(user.getDayStreak()));
+        Log.d("User streak: ", Long.toString(userModel.getDayStreak()));
         FoodItem foodItem = new FoodItem("apples");
         foodItem.setCompletionDate(new Date());
         foodItem.saveInBackground();
@@ -98,7 +112,7 @@ public class MainActivity extends ActionBarActivity implements SeekBar.OnSeekBar
 
     private void setupChart() {
         mChart = (BarChart) findViewById(R.id.chart1);
-        mChart.setDescription("$ Earned in Past Months");
+        mChart.setDescription(null);
 
         //Only show results for the past year
         mChart.setMaxVisibleValueCount(12);
@@ -130,17 +144,6 @@ public class MainActivity extends ActionBarActivity implements SeekBar.OnSeekBar
         rightAxis.setValueFormatter(custom);
         rightAxis.setSpaceTop(15f);
 
-//        Legend l = mChart.getLegend();
-//        l.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
-//        l.setForm(Legend.LegendForm.SQUARE);
-//        l.setFormSize(9f);
-//        l.setTextSize(11f);
-//        l.setXEntrySpace(4f);
-        // l.setExtra(ColorTemplate.VORDIPLOM_COLORS, new String[] { "abc",
-        // "def", "ghj", "ikl", "mno" });
-        // l.setCustom(ColorTemplate.VORDIPLOM_COLORS, new String[] { "abc",
-        // "def", "ghj", "ikl", "mno" });
-
         setData(12, 50);
     }
 
@@ -161,9 +164,37 @@ public class MainActivity extends ActionBarActivity implements SeekBar.OnSeekBar
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.action_add_exercise) {
+            startAddExerciseActivity();
+        } else if (id == R.id.action_add_food) {
+            startAddFoodActivity();
+        } else if (id == R.id.action_view_capital_one) {
+            startCapitalOneActivity();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void startCapitalOneActivity() {
+        Intent intent = new Intent(this, CapitalOneActivity.class);
+        intent.putExtra("streak", userModel.getDayStreak());
+        Log.d("cashBalance", userModel.getMoneyEarned().toString());
+        intent.putExtra("cashBalance", userModel.getMoneyEarned());
+        startActivity(intent);
+    }
+
+    private void startAddFoodActivity() {
+        Intent intent = new Intent(this, AddFoodActivity.class);
+        intent.putExtra("streak", userModel.getDayStreak());
+        intent.putExtra("cashBalance", userModel.getMoneyEarned());
+        startActivity(intent);
+    }
+
+    private void startAddExerciseActivity() {
+        Intent intent = new Intent(this, AddExerciseActivity.class);
+        intent.putExtra("streak", userModel.getDayStreak());
+        intent.putExtra("cashBalance", userModel.getMoneyEarned());
+        startActivity(intent);
     }
 
     @Override
@@ -196,7 +227,7 @@ public class MainActivity extends ActionBarActivity implements SeekBar.OnSeekBar
             yVals1.add(new BarEntry(val, i));
         }
 
-        BarDataSet set1 = new BarDataSet(yVals1, "DataSet");
+        BarDataSet set1 = new BarDataSet(yVals1, "$ Earned");
         set1.setBarSpacePercent(35f);
 
         ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
