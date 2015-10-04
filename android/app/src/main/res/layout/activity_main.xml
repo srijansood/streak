@@ -48,19 +48,12 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"/>
 
-        <TextView
-            android:id="@+id/streak_label"
+        <EditText
+            android:id="@+id/streak_value"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
             android:paddingTop="5dp"
-            android:text="@string/streak_label"
-            android:textSize="@dimen/abc_text_size_medium_material"/>
-
-        <EditText
-            android:id="@+id/streak_value"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
             android:background="@null"
             android:textSize="@dimen/abc_text_size_medium_material"/>
 
@@ -79,19 +72,12 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"/>
 
-        <TextView
-            android:id="@+id/cash_label"
+        <EditText
+            android:id="@+id/cash_value"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
             android:paddingTop="5dp"
-            android:text="@string/cash_label"
-            android:textSize="@dimen/abc_text_size_medium_material"/>
-
-        <EditText
-            android:id="@+id/cash_value"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
             android:background="@null"
             android:textSize="@dimen/abc_text_size_medium_material"/>
     </LinearLayout>
@@ -101,31 +87,5 @@
         android:layout_width="326dp"
         android:layout_height="243dp"/>
 
-    <LinearLayout
-        android:id="@+id/buttonRow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"/>
-
-        <com.dd.processbutton.iml.ActionProcessButton
-            android:id="@+id/cheapestButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Add exercise"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            custom:pb_colorNormal="#FF03A9F4"/>
-
-        <com.dd.processbutton.iml.ActionProcessButton
-            android:id="@+id/closestButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Add food"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            custom:pb_colorNormal="#FF03A9F4"/>
     </LinearLayout>
-
 </RelativeLayout>
