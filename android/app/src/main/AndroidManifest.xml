@@ -12,12 +12,32 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait" >
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".AddExerciseActivity"
+            android:screenOrientation="portrait" >
+            android:label="@string/title_activity_add_exercise" >
+        </activity>
+        <activity
+            android:name=".AddFoodActivity"
+            android:screenOrientation="portrait" >
+            android:label="@string/title_activity_add_food" >
+        </activity>
+        <activity
+            android:name=".CapitalOneActivity"
+            android:screenOrientation="portrait" >
+            android:label="@string/title_activity_capital_one" >
+        </activity>
+        <activity
+            android:name=".MainTabActivity"
+            android:label="@string/title_activity_main_tab" >
         </activity>
     </application>
 
