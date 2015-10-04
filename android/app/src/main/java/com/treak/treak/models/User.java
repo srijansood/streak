@@ -17,6 +17,7 @@ public class User {
     private long dayStreak;
     private BigDecimal moneyEarned;
     private DateTime lastRecordedTime;
+    private String[] gymPreferences = new String[4];
 
     public long getDayStreak() {
 //        return getLong("dayStreak");
