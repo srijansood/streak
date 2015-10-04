@@ -10,15 +10,10 @@ import java.util.Date;
  * Created by Daryl on 10/3/15.
  */
 
-@ParseClassName("User")
-public class User extends ParseUser {
+public class User {
 
     private long dayStreak;
     private BigDecimal moneyEarned;
-
-    public User() {
-        super();
-    }
 
     public long getDayStreak() {
 //        return getLong("dayStreak");
