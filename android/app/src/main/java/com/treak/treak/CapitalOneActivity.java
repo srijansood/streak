@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -36,7 +37,7 @@ public class CapitalOneActivity extends ActionBarActivity {
     private JSONObject apiResponseArray;
     private String balance;
     private String type;
-    private String rewards;
+    private BigDecimal rewards;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,15 +53,22 @@ public class CapitalOneActivity extends ActionBarActivity {
 
         requestQueue = Volley.newRequestQueue(this);
         depositButton = (Button) findViewById(R.id.deposit_button);
+        rewards = (BigDecimal) getIntent().getExtras().get("cashBalance");
+
         depositButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                String currentBalanceString = balanceValue.getText().toString();
-                long currentBalance = Long.parseLong(currentBalanceString.substring(currentBalanceString.lastIndexOf("$") + 1));
-                BigDecimal toSubtract = (BigDecimal) getIntent().getExtras().get("cashBalance");
-                Log.d("Current Balance", Long.toString(currentBalance));
-                balance = Long.toString(currentBalance - toSubtract.longValue());
-                balanceValue.setText("Your balance is $" + balance);
+                if (rewards.equals(new BigDecimal(0))) {
+                    Toast.makeText(getApplicationContext(), "You have no money!!! Work out/eat healthy to keep a streak going!", Toast.LENGTH_SHORT).show();
+                } else {
+                    String currentBalanceString = balanceValue.getText().toString();
+                    long currentBalance = Long.parseLong(currentBalanceString.substring(currentBalanceString.lastIndexOf("$") + 1));
+                    balance = Long.toString(currentBalance + rewards.longValue());
+                    balanceValue.setText("Your balance is $" + balance);
+                    rewards = new BigDecimal(0);
+                    rewardsValue.setText("Your rewards balance is $0");
+                }
             }
         });
 
@@ -133,7 +141,6 @@ public class CapitalOneActivity extends ActionBarActivity {
             apiResponseArray = capitalOneApiResponse.getJSONObject(2);
             balance = apiResponseArray.get("balance").toString();
             type = apiResponseArray.get("type").toString();
-            rewards = apiResponseArray.get("rewards").toString();
         } catch (JSONException e) {
             e.printStackTrace();
         }

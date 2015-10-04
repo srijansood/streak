@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -15,20 +16,15 @@
             android:screenOrientation="portrait" >
             android:label="@string/app_name" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="com.treak.treak.MAINACTIVITY" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddExerciseActivity"
+            android:name=".AddFoodExerciseActivity"
             android:screenOrientation="portrait" >
             android:label="@string/title_activity_add_exercise" >
-        </activity>
-        <activity
-            android:name=".AddFoodActivity"
-            android:screenOrientation="portrait" >
-            android:label="@string/title_activity_add_food" >
         </activity>
         <activity
             android:name=".CapitalOneActivity"
@@ -36,8 +32,21 @@
             android:label="@string/title_activity_capital_one" >
         </activity>
         <activity
-            android:name=".MainTabActivity"
-            android:label="@string/title_activity_main_tab" >
+            android:name=".ListViewActivity"
+            android:label="@string/title_activity_list_activity2" >
+        </activity>
+        <activity
+            android:name=".SplashActivity"
+            android:label="@string/title_activity_splash" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MetricsActivity"
+            android:label="@string/title_activity_metrics" >
         </activity>
     </application>
 

@@ -3,6 +3,8 @@ package com.treak.treak.models;
 import com.parse.ParseClassName;
 import com.parse.ParseUser;
 
+import org.joda.time.DateTime;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -14,10 +16,19 @@ public class User {
 
     private long dayStreak;
     private BigDecimal moneyEarned;
+    private DateTime lastRecordedTime;
 
     public long getDayStreak() {
 //        return getLong("dayStreak");
         return dayStreak;
+    }
+
+    private void streakStillValid() {
+        DateTime now = DateTime.now();
+        double hours = (lastRecordedTime.getMillis() - now.getMillis())/1000/60/60;
+        if (hours > 24) {
+            setDayStreak(0);
+        }
     }
 
     public BigDecimal getMoneyEarned() {

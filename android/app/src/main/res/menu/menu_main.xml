@@ -1,12 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+    <item android:id="@+id/action_add_exercise_food" android:title="@string/action_add_exercise_food"
         android:orderInCategory="100" app:showAsAction="never" />
-    <item android:id="@+id/action_add_exercise" android:title="@string/action_add_exercise"
-        android:orderInCategory="100" app:showAsAction="never" />
-    <item android:id="@+id/action_add_food" android:title="@string/action_add_food"
+    <item android:id="@+id/action_view_metrics" android:title="@string/action_view_metrics"
         android:orderInCategory="100" app:showAsAction="never" />
     <item android:id="@+id/action_view_capital_one" android:title="@string/action_capital_one"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_view_leaderboards" android:title="@string/action_leaderboards"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>

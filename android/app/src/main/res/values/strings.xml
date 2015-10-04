@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">$treak</string>
+    <string name="app_name">Streak</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="action_add_exercise">Add Exercise</string>
+    <string name="action_add_exercise_food">Add Exercise/Food</string>
     <string name="action_add_food">Add Food</string>
     <string name="streak_label">Your current streak is </string>
     <string name="cash_label">You\'ve earned</string>
@@ -17,4 +17,10 @@
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
     <string name="title_activity_main_tab">MainTabActivity</string>
+    <string name="title_activity_list">ListActivity</string>
+    <string name="action_leaderboards">View Leaderboards</string>
+    <string name="title_activity_list_activity2">ListActivity2</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="action_view_metrics">View Metrics</string>
+    <string name="title_activity_metrics">MetricsActivity</string>
 </resources>

@@ -1,8 +1,10 @@
 package com.treak.treak;
 
-import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.SeekBar;
 
+import com.getpebble.android.kit.PebbleKit;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -29,13 +32,18 @@ import com.treak.treak.models.ExerciseItem;
 import com.treak.treak.models.FoodItem;
 import com.treak.treak.models.User;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
-public class MainActivity extends ActionBarActivity implements SeekBar.OnSeekBarChangeListener {
+public class MainActivity extends ActionBarActivity implements SeekBar.OnSeekBarChangeListener, LocationListener {
 
     public static User userModel;
     private BarChart mChart;
@@ -43,6 +51,7 @@ public class MainActivity extends ActionBarActivity implements SeekBar.OnSeekBar
             "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     };
 
+    private LocationManager locationManager;
     private EditText streakValue;
     private EditText cashValue;
 
@@ -62,6 +71,8 @@ public class MainActivity extends ActionBarActivity implements SeekBar.OnSeekBar
         setupChart();
         setLabels();
 
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
     }
 
     private void setLabels() {
@@ -80,12 +91,9 @@ public class MainActivity extends ActionBarActivity implements SeekBar.OnSeekBar
 
         Parse.initialize(this, Secrets.APPLICATION_ID, Secrets.CLIENT_KEY);
 
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "bar");
-        testObject.saveInBackground();
 
-        userModel.setDayStreak(31);
-        userModel.setMoneyEarned(new BigDecimal(27.00));
+        userModel.setDayStreak(200);
+        userModel.setMoneyEarned(new BigDecimal(200.00));
 
         Log.d("User streak: ", Long.toString(userModel.getDayStreak()));
         FoodItem foodItem = new FoodItem("apples");
@@ -144,7 +152,7 @@ public class MainActivity extends ActionBarActivity implements SeekBar.OnSeekBar
         rightAxis.setValueFormatter(custom);
         rightAxis.setSpaceTop(15f);
 
-        setData(12, 50);
+        setData(12, 15);
     }
 
     @Override
@@ -162,17 +170,27 @@ public class MainActivity extends ActionBarActivity implements SeekBar.OnSeekBar
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        } else if (id == R.id.action_add_exercise) {
+        if (id == R.id.action_add_exercise_food) {
             startAddExerciseActivity();
-        } else if (id == R.id.action_add_food) {
-            startAddFoodActivity();
         } else if (id == R.id.action_view_capital_one) {
             startCapitalOneActivity();
+        } else if (id == R.id.action_view_leaderboards) {
+            startListActivity();
+        } else if (id == R.id.action_view_metrics) {
+            startMetricsActivity();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void startMetricsActivity() {
+        Intent intent = new Intent(this, MetricsActivity.class);
+        startActivity(intent);
+    }
+
+    private void startListActivity() {
+        Intent intent = new Intent(this, ListViewActivity.class);
+        startActivity(intent);
     }
 
     private void startCapitalOneActivity() {
@@ -183,15 +201,8 @@ public class MainActivity extends ActionBarActivity implements SeekBar.OnSeekBar
         startActivity(intent);
     }
 
-    private void startAddFoodActivity() {
-        Intent intent = new Intent(this, AddFoodActivity.class);
-        intent.putExtra("streak", userModel.getDayStreak());
-        intent.putExtra("cashBalance", userModel.getMoneyEarned());
-        startActivity(intent);
-    }
-
     private void startAddExerciseActivity() {
-        Intent intent = new Intent(this, AddExerciseActivity.class);
+        Intent intent = new Intent(this, AddFoodExerciseActivity.class);
         intent.putExtra("streak", userModel.getDayStreak());
         intent.putExtra("cashBalance", userModel.getMoneyEarned());
         startActivity(intent);
@@ -223,7 +234,7 @@ public class MainActivity extends ActionBarActivity implements SeekBar.OnSeekBar
 
         for (int i = 0; i < count; i++) {
             float mult = (range + 1);
-            float val = (float) (Math.random() * mult);
+            float val = (float) (i * mult);
             yVals1.add(new BarEntry(val, i));
         }
 
@@ -238,4 +249,59 @@ public class MainActivity extends ActionBarActivity implements SeekBar.OnSeekBar
 
         mChart.setData(data);
     }
-}
+
+    @Override
+        public void onLocationChanged(Location location) {
+            boolean isConnected = PebbleKit.isWatchConnected(getBaseContext());
+
+            String msg2 = "";
+            String msg1 = "";
+
+            final Intent i = new Intent("com.getpebble.action.SEND_NOTIFICATION");
+
+            if (isConnected) {
+                msg1 = "Dining hall detected. Are you eating out today?";
+            }
+                msg2 = "Fitness Center detected. Ae you going to work out?";
+
+            final Map data = new HashMap();
+            data.put("title", "Streak Message");
+            data.put("body", msg1);
+            final JSONObject jsonData = new JSONObject(data);
+            final String notificationData = new JSONArray().put(jsonData).toString();
+
+            i.putExtra("messageType", "PEBBLE_ALERT");
+            i.putExtra("sender", "PebbleKit Android");
+            i.putExtra("notificationData", notificationData);
+            sendBroadcast(i);
+
+            data.put("title", "Streak Message");
+            data.put("body", msg2);
+            final JSONObject jsonData2 = new JSONObject(data);
+            final String notificationData2 = new JSONArray().put(jsonData2).toString();
+
+            i.putExtra("messageType", "PEBBLE_ALERT");
+            i.putExtra("sender", "PebbleKit Android");
+            i.putExtra("notificationData", notificationData2);
+            sendBroadcast(i);
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+            Log.d("Latitude", "disable");
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+            Log.d("Latitude", "enable");
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+            Log.d("Latitude","status");
+        }
+
+        @Override
+        protected void onResume() {
+            super.onResume();
+        }}
