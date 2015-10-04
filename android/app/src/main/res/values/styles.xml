@@ -3,6 +3,17 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+        <item name="colorPrimary">#FF03A9F4</item>
     </style>
 
+    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">#FF03A9F4</item>
+        <item name="tabTextAppearance">@style/MyCustomTabTextAppearance</item>
+    </style>
+
+    <style name="MyCustomTabTextAppearance">MyCustomTabTextAppearance
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="textAllCaps">true</item>
+    </style>
 </resources>
