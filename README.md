@@ -6,5 +6,7 @@ As soon as the app senses that you are at your designated gym, Streak knows you'
 
 The longer you're healthy for, the better the reward. Set goals, and compete with friends. But if you break your streak however, you're paying for your friends' rewards.
 
+Devpost: http://devpost.com/software/streak <br>
+Website: http://hahalima.github.io/StreakApp/
 
 Made at [VandyHacks 2015](http://www.vandyhacks.org/)!
