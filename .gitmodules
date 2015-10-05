@@ -1,3 +1,6 @@
 [submodule "streak-pebble"]
 	path = streak-pebble
 	url = https://github.com/srijansood/streak-pebble
+[submodule "StreakApp"]
+	path = StreakApp
+	url = https://github.com/hahalima/StreakApp.git
